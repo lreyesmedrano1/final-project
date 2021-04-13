@@ -5,6 +5,7 @@ import json
 from pprint import pprint
 import urllib.parse
 
+#Developped by Raphael
 #example locations
 'Boston,MA'
 'Paris'
@@ -62,47 +63,7 @@ def lat_long(location1, location2):
     # print(haversine(boston, paris))
 
 # lat_long(name)
-
-def stop(datas):
-    """
-    Function that prints the closest MBTA stop based on the latitude and longitude. 
-    """
-    MBTA_API_KEY = '78c78742ffb14c3cb6b22071c0986b51'
-    
-    #Gets the latitude and longitude
-    lat = datas["results"][0]["locations"][0]['displayLatLng']['lat']
-    long = datas["results"][0]["locations"][0]['displayLatLng']['lng']
-    print('lat',lat)
-    print('long',long)
-
-    #imports data from the mbta api
-    url1 = (f"https://api-v3.mbta.com/stops?sort=distance&filter%5Blatitude%5D={lat}&filter%5Blongitude%5D={long}")
-    f = urllib.request.urlopen(url1)
-    response_text1 = f.read().decode('utf-8')
-    response_data1 = json.loads(response_text1)
-    # pprint(response_data1)
-
-    #Gets the name, at street and on street of the stop
-    stop_name = response_data1["data"][0]["attributes"]['name']
-    stop_atstreet = response_data1["data"][0]["attributes"]['at_street']
-    stop_onstreet = response_data1["data"][0]["attributes"]['on_street'] 
-    print(f'The name of the stop is {stop_name}. It is at the street {stop_atstreet} and on the street {stop_onstreet}.')
-
-    #Gets whether the stop is wheelchair accesible
-    wheel = response_data1["data"][0]["attributes"]['wheelchair_boarding']
-    # print("Has wheelchair access:", response_data1["data"][0]["attributes"]['wheelchair_boarding'])
-    
-    #Based on the whether the stop is accesible, the result is printed in a more user friendly format
-    if wheel == 0: 
-        print('There is no information for whether the stop is wheelchair accessible')
-    elif wheel == 1:
-        print('The stop is accessible to wheelchairs')
-    elif wheel == 2:
-        print('The stop is inaccessible to wheelchairs')
-
-    # print('lat1', lat)
-    # print('long1', long)   
-
+  
 def travel(typer):
     global em
     # if typer == 'train' or typer == 'Train':
@@ -117,9 +78,35 @@ def travel(typer):
     elif typer == 'bus' or typer == 'Bus':
         em = 104* distance
     elif typer == 'plane' or typer == 'Plane':
-        em = 133 * distance
+        print("Was it a domestic or long-haul flight")
+        plane_type = input()
+        if plane_type == 'domestic' or plane_type == 'Domestic':
+            em = 254 * distance
+        else:
+            em = 195 * distance
     elif typer == 'car' or typer == 'Car':
-        em = 171 * distance
+        print("Do you use an electric, plugin, hybrid or gasoline car?")
+        car_type = input()
+        if car_type == 'electric' or car_type == 'Electric':
+            em = 90.00 * distance
+            print('How many people were in the car? (1-4)')
+            people = float(input())
+            em = em/people
+        elif car_type == 'plugin' or car_type == 'Plugin':
+            em = 135.29 * distance
+            print('How many people were in the car? (1-4)')
+            people = float(input())
+            em = em/people
+        elif car_type == 'hybrid' or car_type == 'Hybrid':
+            em = 149.10 * distance
+            print('How many people were in the car? (1-4)')
+            people = float(input())
+            em = em/people
+        elif car_type == 'gasoline' or car_type == 'Gasoline':
+            em = 272.55 * distance
+            print('How many people were in the car? (1-4)')
+            people = float(input())
+            em = em/people
 
     em = round(em, 2)
     em_round = round(em * 2, 2)
