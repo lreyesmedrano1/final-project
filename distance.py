@@ -112,6 +112,40 @@ def travel(typer):
     em_round = round(em * 2, 2)
     print(f'You produced {em}g of CO2 on your trip and {em_round}g of CO2 for a round trip')
 
+def saved(typer):
+    if typer == 'train' or typer == 'Train': 
+        maxi = distance * 272.55
+        saved = round(maxi - em,2)
+        percent = round(saved/maxi *100,2)
+        print(f"You saved {saved}g of CO2 compared to taking a car. You saved {percent}% of your emissions")
+    elif typer == 'bus' or typer == 'Bus':
+        maxi = distance * 272.55
+        saved = round(maxi - em,2)
+        mini = distance * 6
+        extra_saved = em - mini
+        percent = round(saved/maxi *100,2)
+        extra_percent = (1-round(mini/extra_saved,2))*100
+        print(f"You saved {saved}g of CO2 compared to taking a car. You saved {percent}% of your emissions")
+        print(f"You could have only produced {mini}g of CO2 if an electric train alternative was possible, saving an additional {extra_saved}g of CO2 or {extra_percent}%.")
+    elif typer == 'plane' or typer == 'Plane':
+        maxi = distance * 272.55
+        saved = round(maxi - em,2)
+        mini = distance * 6
+        extra_saved = em - mini
+        percent = round(saved/maxi *100,2)
+        extra_percent = (1-round(mini/extra_saved,2))*100
+        print(f"You saved {saved}g of CO2 by taking a plane compared to taking a car alone. You saved {percent}% of your emissions")
+        print(f"You could have only produced {mini}g of CO2 if an electric train alternative was possible, saving an additional {extra_saved}g of CO2 or {extra_percent}%.")
+    elif typer == 'car' or typer == 'Car':
+        maxi = distance * 272.55
+        saved = round(maxi - em,2)
+        mini = distance * 6
+        extra_saved = em - mini
+        percent = round(saved/maxi *100,2)
+        extra_percent = (1-round(mini/extra_saved,2))*100
+        print(f"You saved {saved}g of CO2 compared to taking a car alone. You saved {percent}% of your emissions")
+        print(f"You could have only produced {mini}g of CO2 if an electric train alternative was possible, saving an additional {extra_saved}g of CO2 or {extra_percent}%.")
+
 
 # stop(data_latlong)
 # print('lat2', lat)
@@ -137,6 +171,7 @@ def distance_calc():
     print("Were you travelling by car, bus, train or plane")
     name3 = input()
     travel(name3)
+    saved(name3)
 
 
 def main():
@@ -145,9 +180,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-#example locations
-'Boston,MA'
-'Wellesley,MA'
-'Chelsea,MA'
-'Brookline,MA'
