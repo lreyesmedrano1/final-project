@@ -7,7 +7,8 @@ import urllib.parse
 
 #Developped by Raphael
 #example locations
-'Boston,MA'
+'Boston'
+'newyork'
 'Paris'
 
 def lat_long(location1, location2): 
