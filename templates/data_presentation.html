@@ -1,4 +1,5 @@
 <!-- #Work in Progress -->
+{% block content %} 
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -9,9 +10,10 @@
 <body>
     <div class = "co2_content">
         <h1>My CO2 Emissions</h1>
-        <p>Distance travel_method {{distance}}......
+        <p>The distance between {{location1}} and {{lcoation2}} is {{result}} kms..
         </p>
-        <p><span class = "data">{{saved}}</span></p>
+        
+        
     </div>
 
 </body>
@@ -23,3 +25,4 @@
 
 
 </html>
+{% endblock %} 

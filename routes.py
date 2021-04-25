@@ -59,7 +59,7 @@ def data():
         location2 = request.form['end']
         location2 = str(location2)
         result = lat_long(location1, location2)
-        return render_template("data_presentation.html")
+        return render_template("data_presentation.html", result=result, location1=location1,location2=location2)
     else:
         return render_template("signin.html", form=form)
 

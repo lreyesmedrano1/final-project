@@ -61,6 +61,7 @@ def lat_long(location1, location2):
     distance = round(dist, 2)
     # distance = dist
     print(f"The distance between {location1} and {location2} is {distance}km")
+    return distance
     # print(haversine(boston, paris))
 
 # lat_long(name)
