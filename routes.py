@@ -36,6 +36,7 @@ class MyForm(FlaskForm):
     )
     
     submit_1 = SubmitField('Distance')
+    submit_2 = SubmitField('CO2 Emission')
     
     
 
@@ -51,18 +52,20 @@ def homepage():
 
 
 @app.route('/distance', methods = ['POST'])
-def data():
+def dis_data():
     """ Based on the location given in the form, the data will go to PArt1 and get the closest stop and if it is wheelchair accessible"""
-    if request.method == "POST":
-        location1 = request.form['start']
-        location1 = str(location1)
-        location2 = request.form['end']
-        location2 = str(location2)
-        result = lat_long(location1, location2)
-        return render_template("data_presentation.html", result=result, location1=location1,location2=location2)
-    else:
-        return render_template("signin.html", form=form)
+    location1 = request.form['start']
+    location1 = str(location1)
+    location2 = request.form['end']
+    location2 = str(location2)
+    result = lat_long(location1, location2)
 
+    return render_template("data_presentation.html", result=result, location1=location1,location2=location2)
+
+@app.route('/co2_emission', methods =['POST'])
+def co2_data():
+    """Based on the data inputed and pressing a certain button will convert the information to what was asked in 
+    the last two functions. It will render the results in  to appear"""
 # def diff_distance():
 #     """run program from distance.lat_long--will print the distance between two points"""
 #     location1 = Location_1

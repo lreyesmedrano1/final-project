@@ -113,6 +113,7 @@ def travel(typer):
     em = round(em, 2)
     em_round = round(em * 2, 2)
     print(f'You produced {em}g of CO2 on your trip and {em_round}g of CO2 for a round trip')
+    return em,em_round
 
 def saved(typer):
     if typer == 'train' or typer == 'Train': 
@@ -147,7 +148,7 @@ def saved(typer):
         extra_percent = (1-round(mini/extra_saved,2))*100
         print(f"You saved {saved}g of CO2 compared to taking a car alone. You saved {percent}% of your emissions")
         print(f"You could have only produced {mini}g of CO2 if an electric train alternative was possible, saving an additional {extra_saved}g of CO2 or {extra_percent}%.")
-
+    return saved, mini, percent, extra_percent, extra_saved
 
 # stop(data_latlong)
 # print('lat2', lat)
@@ -160,17 +161,17 @@ def distance_calc():
     global name1
     global name2
     global name3
-    print('Input your departure location')
+    # print('Input your departure location')
     name1 = input()
     # name1 = 'Boston,MA'
 
-    print('Input your departure location')
+    # print('Input your departure location')
     name2 = input()
     # name2 = 'Paris'
     lat_long(name1, name2)
     # stop(data_latlong)
 
-    print("Were you travelling by car, bus, train or plane")
+    # print("Were you travelling by car, bus, train or plane")
     name3 = input()
     travel(name3)
     saved(name3)
