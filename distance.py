@@ -60,7 +60,7 @@ def lat_long(location1, location2):
     dist = haversine(coor1, coor2)
     distance = round(dist, 2)
     # distance = dist
-    print(f"The distance between {name1} and {name2} is {distance}km")
+    print(f"The distance between {location1} and {location2} is {distance}km")
     # print(haversine(boston, paris))
 
 # lat_long(name)

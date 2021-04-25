@@ -1,0 +1,29 @@
+{% block content %} 
+
+<h1>Welcome</h1>
+<h2>This Website will give you the CO2 emmision for your methods of transportation based on your locations that you input. 
+    please input two locations in the following form and the method of travel </h2> 
+<form action="{{url_for('data')}}" method="post"> 
+    <p> 
+        {{form.start.label}} <br> 
+        {{form.start(size=30)}}
+    </p>
+
+    <p>
+        {{form.end.label}} <br>
+        {{form.end(size=30)}}
+    </p>
+    <p>
+        {{form.method.label}} <br>
+        {{form.method(size=30)}}
+    </p>
+
+    <p>
+        
+        {{form.submit_1()}}
+        
+        
+    </p>
+</form> 
+
+{% endblock %} 

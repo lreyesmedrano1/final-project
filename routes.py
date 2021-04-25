@@ -1,8 +1,11 @@
-
+# Flask Imports:
 from flask import Flask, render_template, request, url_for, redirect
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, SubmitField
 from wtforms.validators import DataRequired, length
+
+#Function Imports:
+from distance import lat_long, travel, saved, distance_calc
 
 app = Flask(__name__)
 
@@ -13,53 +16,52 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 class MyForm(FlaskForm):
     """Contact/Location form."""
-    location_1 = StringField(
-        'Location_1',
+    start = StringField(
+        'Start Destination',
         [DataRequired()]
     )
     
-    location_2 = TextField(
-        'Location_2',
+    end = TextField(
+        'End destination',
         [
             DataRequired()
         ]
     )
-
+    
     method = TextField(
-        'Transportation Method',
+        'Transportation Type',
         [
             DataRequired()
         ]
     )
     
-    submit = SubmitField('Submit')
+    submit_1 = SubmitField('Distance')
+    
     
 
 
 
-@app.route('/home', methods = ['POST', 'GET'])
+@app.route('/', methods = ['POST', 'GET'])
 def homepage():
     "this function is reading the html page to allow the user to fill out the form for a designated location"
     form = MyForm() 
     transportation = ["Train", "Bus", "Plane", "Car" ]
     
-    return render_template('signin.html', form=form, transportation=transportation) 
+    return render_template('signin.html', form=form) 
 
-from distance import lat_long, travel, saved, distance_calc
-@app.route('/data', methods = ['POST'])
+
+@app.route('/distance', methods = ['POST'])
 def data():
     """ Based on the location given in the form, the data will go to PArt1 and get the closest stop and if it is wheelchair accessible"""
     if request.method == "POST":
-        location1 = request.form["location1"]
-        location1= str(location1)
-        location2 = request.form["location2"]
+        location1 = request.form['start']
+        location1 = str(location1)
+        location2 = request.form['end']
         location2 = str(location2)
         result = lat_long(location1, location2)
-        if result == "none":
-            return render_template("signin.html")
-        else:
-            result = result.split(",")
-            return render_template("data_presentation.html", location1 = location1, location2 = location2)
+        return render_template("data_presentation.html")
+    else:
+        return render_template("signin.html", form=form)
 
 # def diff_distance():
 #     """run program from distance.lat_long--will print the distance between two points"""
@@ -81,4 +83,4 @@ def data():
 
 
 if __name__ == "__main__":
-    routes.run(debug=True)
+    app.run(debug=True)
