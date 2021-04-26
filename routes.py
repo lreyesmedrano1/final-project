@@ -84,9 +84,10 @@ def co2_data():
     typer = request.form['method']
     typer = str(typer)
     outcome, em_round = travel(typer,distance)
-    extra_percent= saved(typer,distance,em)
+    results= saved(typer,distance,em)
+    saved1,percent,mini,extra_saved,extra_percent = results
     
-    return render_template('co2_data.html', outcome=outcome, em_round=em_round,extra_percent=extra_percent )
+    return render_template('co2_data.html', outcome=outcome, em_round=em_round,results=results,saved1=saved1, mini=mini,percent=percent, extra_percent=extra_percent,extra_saved=extra_saved )
 
 
 
