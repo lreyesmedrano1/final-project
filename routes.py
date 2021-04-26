@@ -29,7 +29,7 @@ class MyForm(FlaskForm):
     )
     
     method = TextField(
-        'Transportation Type',
+        'Transportation',
         [
             DataRequired()
         ]
@@ -64,8 +64,17 @@ def dis_data():
 
 @app.route('/co2_emission', methods =['POST'])
 def co2_data():
-    """Based on the data inputed and pressing a certain button will convert the information to what was asked in 
+    """Based on the data inputed and pressing CO2 Emission will convert the information to what was asked in 
     the last two functions. It will render the results in  to appear"""
+    location1 = request.form['start']
+    location1 = str(location1)
+    location2 = request.form['end']
+    location2 = str(location2)
+    typer = request.form['method']
+    typer = str(typer)
+    outcome = travel(typer)
+    co2_save= saved(typer)
+    return render_template('co2_data.html', outcome=outcome, co2_save=co2_save)
 # def diff_distance():
 #     """run program from distance.lat_long--will print the distance between two points"""
 #     location1 = Location_1

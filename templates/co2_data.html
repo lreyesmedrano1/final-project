@@ -10,11 +10,13 @@
 <body>
     <div class = "co2_content">
         <h1>My CO2 Emissions and Saved Emissions</h1>
-        <p>You produced {{em}}g of CO2 on your trip and {{em_round}}g of CO2 for a round trip</p>
+        <p>{{outcome}}</p>
+        <p>You produced __{{em}}__g of CO2 on your trip and __{{em_round}}__g of CO2 for a round trip</p>
         <br>
+        <p>{{co2_save}}</p>
         <p>
-        You saved {{saved}}g of CO2 compared to taking a car alone. You saved {{percent}}% of your emissions". 
-        "You could have only produced {{mini}}g of CO2 if an electric train alternative was possible, saving an additional {{extra_saved}}g of CO2 or {{extra_percent}}%." 
+        You saved __{{saved}}__g of CO2 compared to taking a car alone. You saved __{{percent}}__% of your emissions". 
+        "You could have only produced __{{mini}}__g of CO2 if an electric train alternative was possible, saving an additional __{{extra_saved}}__g of CO2 or __{{extra_percent}}__%." 
         </p>
         
         
