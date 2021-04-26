@@ -1,7 +1,7 @@
 # Flask Imports:
 from flask import Flask, render_template, request, url_for, redirect
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextField, SubmitField
+from wtforms import StringField, TextField, SubmitField, SelectField
 from wtforms.validators import DataRequired, length
 import math
 
@@ -35,6 +35,11 @@ class MyForm(FlaskForm):
             DataRequired()
         ]
     )
+    c_travel_type = SelectField('Car type', choices =[('none'),('Gas'), ('Electric'),('Plugin'),('Hybrid')])
+    t_travel_type = SelectField('Train type',choices = [('none'),('Electric'), ('Fossil Fuel')])
+    p_travel_type= SelectField('Plane type', choices=[('none'),('domestic'), ('long haul')] )
+
+    people = SelectField("If in a car, How many people were there?", choices=[('1'),('2'),('3'),('4')])
     
     submit_1 = SubmitField('Distance')
     submit_2 = SubmitField('CO2 Emission')
@@ -72,13 +77,18 @@ def co2_data():
     location1 = str(location1)
     location2 = request.form['end']
     location2 = str(location2)
+    train_type = request.form['t_travel_type']
+    car_type =request.form['c_travel_type']
+    plane_type =request.form['p_travel_type']
+    a_people = request.form['people']
     distance = lat_long(location1, location2)
     typer = request.form['method']
     typer = str(typer)
-    em = 1230
+    em =12
     outcome = travel(typer,distance)
     co2_save= saved(typer,distance,em)
-    return render_template('co2_data.html', outcome=outcome, co2_save=co2_save)
+    
+    return render_template('co2_data.html', outcome=outcome, co2_save=co2_save,saved=saved)
 
 
 

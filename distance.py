@@ -113,7 +113,7 @@ def travel(typer, distance):
     em = round(em, 2)
     em_round = round(em * 2, 2)
     print(f'You produced {em}g of CO2 on your trip and {em_round}g of CO2 for a round trip')
-    return em
+    return em, em_round
 
 
 def saved(typer, distance, em):
