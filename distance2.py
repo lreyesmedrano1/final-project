@@ -159,9 +159,9 @@ def distance_calc():
     """
     Function that adds the input at the beggining and puts the two previous functions together
     """
-    global name1
-    global name2
-    global name3
+    # global name1
+    # global name2
+    # global name3
     print('Input your departure location')
     name1 = input()
     # name1 = 'Boston,MA'
@@ -303,6 +303,7 @@ def distance_calc():
         print(f"You saved {saved}g of CO2 compared to taking a car alone. You saved {percent}% of your emissions")
         print(f"You could have only produced {mini}g of CO2 if an electric train alternative was possible, saving an additional {extra_saved}g of CO2 or {extra_percent}%.")
     return saved, mini, percent, extra_percent, extra_saved
+    print()
     # saved(name3)
 
 
