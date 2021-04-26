@@ -15,7 +15,7 @@ def lat_long(location1, location2):
     """
     Function that gets the information of a location based on its name. 
     """
-    global data_latlong
+    # global data_latlong
     print(f"Your departure location is {location1} and destination is {location2}")
     #Imports data from the mapquestapi
     MAPQUEST_API_KEY = 'XxtdAMBvWmSKhAKu0wu0kMXQT8gbOp6b'
@@ -56,7 +56,7 @@ def lat_long(location1, location2):
 
     # boston = (42.358894,-71.056742)
     # boston = (lat, long)'Chelsea,MA'
-    global distance
+    # global distance
     dist = haversine(coor1, coor2)
     distance = round(dist, 2)
     # distance = dist
@@ -66,8 +66,8 @@ def lat_long(location1, location2):
 
 # lat_long(name)
   
-def travel(typer):
-    global em
+def travel(typer, distance):
+    # global em
     # if typer == 'train' or typer == 'Train':
     #     em = 41* distance
     if typer == 'train' or typer == 'Train':
@@ -113,10 +113,10 @@ def travel(typer):
     em = round(em, 2)
     em_round = round(em * 2, 2)
     print(f'You produced {em}g of CO2 on your trip and {em_round}g of CO2 for a round trip')
-    return em,em_round
+    return em
 
 
-def saved(typer):
+def saved(typer, distance, em):
     if typer == 'train' or typer == 'Train': 
         maxi = distance * 272.55
         saved = round(maxi - em,2)
@@ -125,7 +125,7 @@ def saved(typer):
     elif typer == 'bus' or typer == 'Bus':
         maxi = distance * 272.55
         saved = round(maxi - em,2)
-        mini = distance * 6
+        mini = round(distance * 6,2)
         extra_saved = em - mini
         percent = round(saved/maxi *100,2)
         extra_percent = (1-round(mini/extra_saved,2))*100
@@ -134,7 +134,7 @@ def saved(typer):
     elif typer == 'plane' or typer == 'Plane':
         maxi = distance * 272.55
         saved = round(maxi - em,2)
-        mini = distance * 6
+        mini = round(distance * 6,2)
         extra_saved = em - mini
         percent = round(saved/maxi *100,2)
         extra_percent = (1-round(mini/extra_saved,2))*100
@@ -143,7 +143,7 @@ def saved(typer):
     elif typer == 'car' or typer == 'Car':
         maxi = distance * 272.55
         saved = round(maxi - em,2)
-        mini = distance * 6
+        mini = round(distance * 6,2)
         extra_saved = em - mini
         percent = round(saved/maxi *100,2)
         extra_percent = (1-round(mini/extra_saved,2))*100
@@ -159,9 +159,9 @@ def distance_calc():
     """
     Function that adds the input at the beggining and puts the two previous functions together
     """
-    global name1
-    global name2
-    global name3
+    # global name1
+    # global name2
+    # global name3
     # print('Input your departure location')
     name1 = input()
     # name1 = 'Boston,MA'
@@ -169,13 +169,12 @@ def distance_calc():
     # print('Input your departure location')
     name2 = input()
     # name2 = 'Paris'
-    lat_long(name1, name2)
+    distance = lat_long(name1, name2)
     # stop(data_latlong)
-
     # print("Were you travelling by car, bus, train or plane")
     name3 = input()
-    travel(name3)
-    saved(name3)
+    em = travel(name3, distance)
+    saved(name3, distance, em)
 
 
 def main():
