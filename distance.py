@@ -70,6 +70,7 @@ def travel(typer, distance):
     # global em
     # if typer == 'train' or typer == 'Train':
     #     em = 41* distance
+    em = 0
     if typer == 'train' or typer == 'Train':
         print('Was it an electric of fossil fuel traine?')
         train_type = input()
@@ -149,7 +150,7 @@ def saved(typer, distance, em):
         extra_percent = (1-round(mini/extra_saved,2))*100
         print(f"You saved {saved}g of CO2 compared to taking a car alone. You saved {percent}% of your emissions")
         print(f"You could have only produced {mini}g of CO2 if an electric train alternative was possible, saving an additional {extra_saved}g of CO2 or {extra_percent}%.")
-    return saved, mini, percent, extra_percent, extra_saved
+    return saved, percent, mini, extra_saved, extra_percent
 
 # stop(data_latlong)
 # print('lat2', lat)
