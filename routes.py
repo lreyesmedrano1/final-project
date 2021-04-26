@@ -75,15 +75,7 @@ def co2_data():
     outcome = travel(typer)
     co2_save= saved(typer)
     return render_template('co2_data.html', outcome=outcome, co2_save=co2_save)
-# def diff_distance():
-#     """run program from distance.lat_long--will print the distance between two points"""
-#     location1 = Location_1
-#     location2 = location_2
-#     return lat_long(location1,location2), render_template('data_presentation.html', form = form)
-# def saved_distance():
-#     """ run program from sitance.distance_calc-- will calculate what was traveled and saved. 
-#     Essentially combining the travel and saved functions from distance.py """
-#     return distance_calc(), render_template('data_presentation.html', form=form)
+
 
 
 
