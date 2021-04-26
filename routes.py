@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextField, SubmitField
 from wtforms.validators import DataRequired, length
+import math
 
 #Function Imports:
 from distance import lat_long, travel, saved, distance_calc
@@ -66,14 +67,17 @@ def dis_data():
 def co2_data():
     """Based on the data inputed and pressing CO2 Emission will convert the information to what was asked in 
     the last two functions. It will render the results in  to appear"""
+    
     location1 = request.form['start']
     location1 = str(location1)
     location2 = request.form['end']
     location2 = str(location2)
+    distance = lat_long(location1, location2)
     typer = request.form['method']
     typer = str(typer)
-    outcome = travel(typer)
-    co2_save= saved(typer)
+    em = 1230
+    outcome = travel(typer,distance)
+    co2_save= saved(typer,distance,em)
     return render_template('co2_data.html', outcome=outcome, co2_save=co2_save)
 
 
