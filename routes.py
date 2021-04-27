@@ -35,11 +35,11 @@ class MyForm(FlaskForm):
             DataRequired()
         ]
     )
-    c_travel_type = SelectField('Car type', choices =[('none'),('Gas'), ('Electric'),('Plugin'),('Hybrid')])
-    t_travel_type = SelectField('Train type',choices = [('none'),('Electric'), ('Fossil Fuel')])
-    p_travel_type= SelectField('Plane type', choices=[('none'),('domestic'), ('long haul')] )
+    c_travel_type = SelectField('Car type', choices =[(''),('Gas'), ('Electric'),('Plugin'),('Hybrid')])
+    t_travel_type = SelectField('Train type',choices = [(''),('Electric'), ('Fossil Fuel')])
+    p_travel_type= SelectField('Plane type', choices=[(''),('domestic'), ('long haul')] )
 
-    people = SelectField("If in a car, How many people were there?", choices=[('1'),('2'),('3'),('4')])
+    people = SelectField("If in a car, How many people were there?", choices=[(" "),('1'),('2'),('3'),('4')])
     
     submit_1 = SubmitField('Distance')
     submit_2 = SubmitField('CO2 Emission')
@@ -72,29 +72,25 @@ def dis_data():
 def co2_data():
     """Based on the data inputed and pressing CO2 Emission will convert the information to what was asked in 
     the last two functions. It will render the results in  to appear"""
-    if request.method == "POST":
-        location1 = request.form['start']
-        location1 = str(location1)
-        location2 = request.form['end']
-        location2 = str(location2)
-        train_type = request.form['t_travel_type']
-        car_type =request.form['c_travel_type']
-        plane_type =request.form['p_travel_type']
-        a_people = request.form['people']
-        distance = lat_long(location1, location2)
-        typer = request.form['method']
-        typer = str(typer)
-        em =12
-        outcome = travel(typer,distance)
-        co2_save= saved(typer,distance,em)
-    if outcome is not None: 
-        if isinstance(outcome, str):
-            print(f"Hi {outcome}")
-            return render_template('co2_data.html', outcome=outcome, co2_save=co2_save,saved=saved)
-        else:
-            return render_template('co2_data.html', outcome=outcome, co2_save=co2_save, saved=saved)
-    return render_template('co2_data.html', error=True)
-return render_template('co2_data.html', error=None)
+    location1 = request.form['start']
+    location1 = str(location1)
+    location2 = request.form['end']
+    location2 = str(location2)
+    train_type = request.form['t_travel_type']
+    car_type =request.form['c_travel_type']
+    plane_type =request.form['p_travel_type']
+    a_people = request.form['people']
+    distance = lat_long(location1, location2)
+    typer = request.form['method']
+    typer = str(typer)
+    em =12
+    outcome,em_round = travel(typer,distance)
+    co2_save= saved(typer,distance,em)
+    saved1, percent, mini, extra_saved, extra_percent = co2_save
+
+    return render_template('co2_data.html', outcome=outcome, em_round=em_round, saved1=saved1, percent=percent, mini=mini, extra_saved=extra_saved, extra_percent=extra_percent)
+ 
+
 
 if __name__ == "__main__":
     app.run(debug=True) 
