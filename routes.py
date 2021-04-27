@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, length
 import math
 
 #Function Imports:
-from distance import lat_long, travel, saved, distance_calc
+from distance_copy import lat_long, travel, saved, distance_calc
 
 app = Flask(__name__)
 
@@ -35,9 +35,6 @@ class MyForm(FlaskForm):
             DataRequired()
         ]
     )
-    c_travel_type = SelectField('Car type', choices =[(''),('Gas'), ('Electric'),('Plugin'),('Hybrid')])
-    t_travel_type = SelectField('Train type',choices = [(''),('Electric'), ('Fossil Fuel')])
-    p_travel_type= SelectField('Plane type', choices=[(''),('domestic'), ('long haul')] )
 
     people = SelectField("If in a car, How many people were there?", choices=[(" "),('1'),('2'),('3'),('4')])
     
@@ -72,21 +69,17 @@ def dis_data():
 def co2_data():
     """Based on the data inputed and pressing CO2 Emission will convert the information to what was asked in 
     the last two functions. It will render the results in  to appear"""
+    em =12
     location1 = request.form['start']
-    location1 = str(location1)
     location2 = request.form['end']
-    location2 = str(location2)
-    train_type = request.form['t_travel_type']
-    car_type =request.form['c_travel_type']
-    plane_type =request.form['p_travel_type']
-    a_people = request.form['people']
+    people = request.form['people']
+    people = float(people)
     distance = lat_long(location1, location2)
     typer = request.form['method']
     typer = str(typer)
-    em =12
-    outcome,em_round = travel(typer,distance)
-    co2_save= saved(typer,distance,em)
-    saved1, percent, mini, extra_saved, extra_percent = co2_save
+    outcome,em_round = travel(typer,distance,people)
+    results= saved(typer,distance,em)
+    saved1, percent, mini, extra_saved, extra_percent = results
 
     return render_template('co2_data.html', outcome=outcome, em_round=em_round, saved1=saved1, percent=percent, mini=mini, extra_saved=extra_saved, extra_percent=extra_percent)
  
